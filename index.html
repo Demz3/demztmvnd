@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top Up Game - Mobile Legend & Free Fire</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0c2461, #1e3799);
+            color: #fff;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 0;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 30px;
+        }
+        
+        .logo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .logo i {
+            font-size: 2.5rem;
+            color: #ff9f43;
+            margin-right: 15px;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(to right, #ff9f43, #ffaf60);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .tagline {
+            font-size: 1.1rem;
+            color: #dcdde1;
+            margin-top: 10px;
+        }
+        
+        .highlight {
+            color: #ff9f43;
+            font-weight: bold;
+        }
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .game-section {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .game-section:hover {
+            transform: translateY(-5px);
+        }
+        
+        .game-title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .game-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 1.8rem;
+        }
+        
+        .ml-icon {
+            background: linear-gradient(to right, #0652DD, #1B1464);
+        }
+        
+        .ff-icon {
+            background: linear-gradient(to right, #EE5A24, #EA2027);
+        }
+        
+        .game-name {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        .diamond-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .diamond-option {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 15px 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .diamond-option:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: scale(1.05);
+        }
+        
+        .diamond-option.active {
+            background: rgba(255, 159, 67, 0.2);
+            border-color: #ff9f43;
+        }
+        
+        .diamond-amount {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .diamond-price {
+            color: #ff9f43;
+            font-weight: 600;
+        }
+        
+        .payment-section {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .payment-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #ff9f43;
+            display: flex;
+            align-items: center;
+        }
+        
+        .payment-title i {
+            margin-right: 10px;
+        }
+        
+        .dana-info {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        
+        .dana-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #ff9f43;
+            letter-spacing: 2px;
+            margin: 15px 0;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 10px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+        
+        .warning {
+            color: #ff9f43;
+            font-style: italic;
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        
+        input {
+            width: 100%;
+            padding: 15px;
+            border-radius: 10px;
+            border: none;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1rem;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: #ff9f43;
+        }
+        
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            border-radius: 10px;
+            border: none;
+            background: linear-gradient(to right, #ff9f43, #ffaf60);
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            margin-top: 25px;
+            box-shadow: 0 5px 15px rgba(255, 159, 67, 0.4);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 159, 67, 0.6);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .benefits {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+        
+        .benefit-card {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            border-top: 4px solid #ff9f43;
+        }
+        
+        .benefit-icon {
+            font-size: 2.5rem;
+            color: #ff9f43;
+            margin-bottom: 15px;
+        }
+        
+        .benefit-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #dcdde1;
+            font-size: 0.9rem;
+        }
+        
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            display: none;
+            z-index: 1000;
+            border-left: 5px solid #ff9f43;
+            max-width: 350px;
+        }
+        
+        .notification.show {
+            display: block;
+            animation: slideIn 0.5s ease;
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        .instructions {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 30px;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        
+        .instructions ol {
+            padding-left: 20px;
+            margin-top: 10px;
+        }
+        
+        .instructions li {
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-gamepad"></i>
+                <h1>TOP UP GAME STORE</h1>
+            </div>
+            <p class="tagline">Top Up <span class="highlight">Mobile Legend</span> dan <span class="highlight">Free Fire</span> dengan proses <span class="highlight">cepat</span> dan <span class="highlight">aman</span></p>
+        </header>
+        
+        <div class="main-content">
+            <!-- Mobile Legend Section -->
+            <div class="game-section">
+                <div class="game-title">
+                    <div class="game-icon ml-icon">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                    <h2 class="game-name">Mobile Legend</h2>
+                </div>
+                
+                <p style="margin-bottom: 20px; color: #dcdde1;">Pilih jumlah Diamond yang ingin dibeli:</p>
+                
+                <div class="diamond-options" id="ml-options">
+                    <div class="diamond-option" data-amount="86" data-price="25000">
+                        <div class="diamond-amount">86 Diamond</div>
+                        <div class="diamond-price">Rp 25.000</div>
+                    </div>
+                    <div class="diamond-option" data-amount="172" data-price="50000">
+                        <div class="diamond-amount">172 Diamond</div>
+                        <div class="diamond-price">Rp 50.000</div>
+                    </div>
+                    <div class="diamond-option" data-amount="257" data-price="75000">
+                        <div class="diamond-amount">257 Diamond</div>
+                        <div class="diamond-price">Rp 75.000</div>
+                    </div>
+                    <div class="diamond-option" data-amount="344" data-price="100000">
+                        <div class="diamond-amount">344 Diamond</div>
+                        <div class="diamond-price">Rp 100.000</div>
+                    </div>
+                    <div class="diamond-option" data-amount="429" data-price="125000">
+                        <div class="diamond-amount">429 Diamond</div>
+                        <div class="diamond-price">Rp 125.000</div>
+                    </div>
+                    <div class="diamond-option" data-amount="514" data-price="150000">
+                        <div class="diamond-amount">514 Diamond</div>
+                        <div class="diamond-price">Rp 150.000</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Free Fire Section -->
+            <div class="game-section">
+                <div class="game-title">
+                    <div class="game-icon ff-icon">
+                        <i class="fas fa-fire"></i>
+                    </div>
+                    <h2 class="game-name">Free Fire</h2>
+                </div>
+                
+                <p style="margin-bottom: 20px; color: #dcdde1;">Pilih jumlah Diamond yang ingin dibeli:</p>
+                
+                <div class="diamond-options" id="ff-options">
+                    <div class="diamond-option" data-amount="100" data-price="25000">
+                        <div class="diamond-amount">100 Diamond</div>
+                        <div class="diamond-price">Rp 25.000</div>
+                    </div>
+                    <div class="diamond-option" data-amount="210" data-price="50000">
+                        <div class="diamond-amount">210 Diamond</div>
+                        <div class="diamond-price">Rp 50.000</div>
+                    </div>
+                    <div class="diamond-option" data-amount="530" data-price="125000">
+                        <div class="diamond-amount">530 Diamond</div>
+                        <div class="diamond-price">Rp 125.000</div>
+                    </div>
+                    <div class="diamond-option" data-amount="1100" data-price="250000">
+                        <div class="diamond-amount">1100 Diamond</div>
+                        <div class="diamond-price">Rp 250.000</div>
+                    </div>
+                    <div class="diamond-option" data-amount="2180" data-price="500000">
+                        <div class="diamond-amount">2180 Diamond</div>
+                        <div class="diamond-price">Rp 500.000</div>
+                    </div>
+                    <div class="diamond-option" data-amount="5600" data-price="1250000">
+                        <div class="diamond-amount">5600 Diamond</div>
+                        <div class="diamond-price">Rp 1.250.000</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Payment Section -->
+        <div class="payment-section">
+            <h3 class="payment-title"><i class="fas fa-wallet"></i> Pembayaran via Dana</h3>
+            
+            <div class="dana-info">
+                <p>Transfer ke nomor Dana berikut:</p>
+                <div class="dana-number">0838 3196 0212</div>
+                <p>a.n. <strong>Top Up Game Store</strong></p>
+                <p class="warning">Harap transfer sesuai dengan total pembayaran yang tertera di bawah</p>
+            </div>
+            
+            <form id="payment-form">
+                <div class="form-group">
+                    <label for="game-type">Pilih Game:</label>
+                    <select id="game-type" name="game-type" style="width: 100%; padding: 15px; border-radius: 10px; border: none; background: rgba(255, 255, 255, 0.1); color: white; font-size: 1rem; border: 2px solid rgba(255, 255, 255, 0.1);">
+                        <option value="mobile-legend">Mobile Legend</option>
+                        <option value="free-fire">Free Fire</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="user-id">User ID Game:</label>
+                    <input type="text" id="user-id" name="user-id" placeholder="Masukkan User ID Anda" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="nickname">Nickname Game:</label>
+                    <input type="text" id="nickname" name="nickname" placeholder="Masukkan Nickname Anda" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="diamond-amount">Jumlah Diamond:</label>
+                    <input type="text" id="diamond-amount" name="diamond-amount" readonly>
+                </div>
+                
+                <div class="form-group">
+                    <label for="total-payment">Total Pembayaran:</label>
+                    <input type="text" id="total-payment" name="total-payment" readonly>
+                </div>
+                
+                <button type="submit" class="btn">
+                    <i class="fas fa-bolt"></i> Konfirmasi Pembayaran
+                </button>
+            </form>
+            
+            <div class="instructions">
+                <p><strong>Instruksi Pembelian:</strong></p>
+                <ol>
+                    <li>Pilih game dan jumlah diamond yang ingin dibeli</li>
+                    <li>Isi User ID dan Nickname game Anda</li>
+                    <li>Transfer ke nomor Dana yang tertera di atas sesuai total pembayaran</li>
+                    <li>Klik tombol "Konfirmasi Pembayaran" dan ikuti instruksi selanjutnya</li>
+                    <li>Diamond akan masuk dalam waktu <strong>1-5 menit</strong> setelah pembayaran dikonfirmasi</li>
+                </ol>
+            </div>
+        </div>
+        
+        <!-- Benefits Section -->
+        <div class="benefits">
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <h4 class="benefit-title">Proses Cepat</h4>
+                <p>Diamond masuk dalam waktu 1-5 menit setelah pembayaran dikonfirmasi</p>
+            </div>
+            
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h4 class="benefit-title">100% Aman</h4>
+                <p>Transaksi aman dan terjamin, tidak ada penipuan</p>
+            </div>
+            
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <i class="fas fa-headset"></i>
+                </div>
+                <h4 class="benefit-title">Bantuan 24 Jam</h4>
+                <p>Customer service siap membantu kapan saja</p>
+            </div>
+            
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <i class="fas fa-gem"></i>
+                </div>
+                <h4 class="benefit-title">Bonus Diamond</h4>
+                <p>Dapatkan bonus diamond untuk pembelian dalam jumlah besar</p>
+            </div>
+        </div>
+        
+        <footer>
+            <p>&copy; 2023 Top Up Game Store. Semua hak dilindungi.</p>
+            <p>Layanan top up Mobile Legend dan Free Fire resmi dan terpercaya</p>
+            <p style="margin-top: 10px; font-size: 0.8rem;">Hubungi kami: cs@topupgamestore.id | WhatsApp: 0838-3196-0212</p>
+        </footer>
+    </div>
+    
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        <strong>Pembayaran Dikonfirmasi!</strong>
+        <p>Diamond akan segera diproses dan masuk ke akun Anda dalam 1-5 menit.</p>
+    </div>
+    
+    <script>
+        // Inisialisasi variabel
+        let selectedGame = 'mobile-legend';
+        let selectedAmount = 86;
+        let selectedPrice = 25000;
+        
+        // Fungsi untuk memilih diamond option
+        function selectDiamondOption(optionElement) {
+            // Hapus kelas active dari semua option di game yang sama
+            const parent = optionElement.parentElement;
+            const allOptions = parent.querySelectorAll('.diamond-option');
+            allOptions.forEach(opt => opt.classList.remove('active'));
+            
+            // Tambah kelas active ke option yang dipilih
+            optionElement.classList.add('active');
+            
+            // Update nilai yang dipilih
+            selectedAmount = optionElement.getAttribute('data-amount');
+            selectedPrice = optionElement.getAttribute('data-price');
+            
+            // Update form
+            document.getElementById('diamond-amount').value = `${selectedAmount} Diamond`;
+            document.getElementById('total-payment').value = `Rp ${formatNumber(selectedPrice)}`;
+        }
+        
+        // Format angka dengan pemisah ribuan
+        function formatNumber(num) {
+            return parseInt(num).toLocaleString('id-ID');
+        }
+        
+        // Inisialisasi saat ha
